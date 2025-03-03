@@ -1,16 +1,35 @@
 package com.flores.oauth2login.controller;
 
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.flores.oauth2login.service.GooglePeopleService;
+import com.google.api.services.people.v1.model.Person;
+
 @RestController
 public class TestController {
+    @Autowired
+    private GooglePeopleService googlePeopleService;
+
     @GetMapping("/user-info")
     public Map<String, Object> getUser(@AuthenticationPrincipal OAuth2User principal) {
         return principal.getAttributes();
+    }
+
+    @GetMapping("/contacts")
+    public List<Person> getContacts(@AuthenticationPrincipal OAuth2User principal,
+                                    @RegisteredOAuth2AuthorizedClient("google") OAuth2AuthorizedClient authorizedClient)
+                                    throws Exception {
+        String accessToken = authorizedClient.getAccessToken().getTokenValue();
+
+        return googlePeopleService.getContacts(accessToken);
     }
 }
