@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Google Contacts</title>
+    </head>
+    <body>
+        <h1>Google Contacts</h1>
+        
+        <p th:if="${error}" th:text="${error}" style="color: red;"></p>
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="contact : ${contacts}">
+                    <td th:text="${contact.names[0].displayName}"></td>
+                    <td th:if="${contact.emailAddresses != null}" th:text="${contact.emailAddresses[0].value}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/user-info">Back to Profile</a>
+    </body>
+</html>

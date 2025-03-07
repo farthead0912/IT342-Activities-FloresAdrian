@@ -5,31 +5,30 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.flores.oauth2login.service.GooglePeopleService;
-import com.google.api.services.people.v1.model.Person;
+import com.flores.oauth2login.service.GoogleContactsService;
 
-@RestController
+@Controller
 public class TestController {
     @Autowired
-    private GooglePeopleService googlePeopleService;
+    GoogleContactsService googleContactsService;
 
     @GetMapping("/user-info")
+    @ResponseBody
     public Map<String, Object> getUser(@AuthenticationPrincipal OAuth2User principal) {
         return principal.getAttributes();
     }
 
     @GetMapping("/contacts")
-    public List<Person> getContacts(@AuthenticationPrincipal OAuth2User principal,
-                                    @RegisteredOAuth2AuthorizedClient("google") OAuth2AuthorizedClient authorizedClient)
-                                    throws Exception {
-        String accessToken = authorizedClient.getAccessToken().getTokenValue();
-
-        return googlePeopleService.getContacts(accessToken);
+    public String getContacts(Model model, OAuth2AuthenticationToken authenticationToken) {
+        List<Map<String, Object>> contacts = googleContactsService.getContacts(authenticationToken);
+        model.addAttribute("contacts", contacts);
+        return "contacts";  // Render Thymeleaf template
     }
 }
