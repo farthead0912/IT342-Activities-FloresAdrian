@@ -6,6 +6,9 @@
 <body>
     <h1>Welcome, <span th:text="${user.name}"></span></h1>
     <p>Email: <span th:text="${user.email}"></span></p>
-    <a href="/contacts">View Contacts</a>
+    <p>Sub: <span th:text="${user.sub}"></span></p>
+    <p>Picture: <span th:text="${user.picture}"></span></p>
+    <a href="/contacts">View Contacts</a><br/>
+    <a href="/logout">Logout</a>
 </body>
 </html>

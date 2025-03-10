@@ -54,18 +54,18 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-  			 <groupId>org.springframework.boot</groupId>
-  			 <artifactId>spring-boot-starter-thymeleaf</artifactId>
+  			<groupId>org.springframework.boot</groupId>
+  			<artifactId>spring-boot-starter-thymeleaf</artifactId>
   		</dependency>
 		<dependency>
-  			 <groupId>org.springframework.boot</groupId>
-  			 <artifactId>spring-boot-starter-webflux</artifactId>
+  			<groupId>org.springframework.boot</groupId>
+  			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>com.google.apis</groupId>
 			<artifactId>google-api-services-people</artifactId>
-			<version>v1-rev20210903-1.32.1</version>
+			<version>v1-rev20230621-2.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.api-client</groupId>
