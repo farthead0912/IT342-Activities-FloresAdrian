@@ -63,7 +63,6 @@ public class GoogleContactsService {
                 .collect(Collectors.toList());
     }
 
-
     public Person getContactByResourceName(OAuth2AuthorizedClient authorizedClient, String resourceName) throws GeneralSecurityException, IOException {
         PeopleService peopleService = getPeopleService(authorizedClient);
 

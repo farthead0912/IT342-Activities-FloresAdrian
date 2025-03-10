@@ -77,7 +77,10 @@ public class TestController {
             phone.setValue(phoneNumber);
             newContact.setPhoneNumbers(List.of(phone));
         }
+        System.out.println("Creating Contact: " + newContact.toPrettyString());
+
         googleContactsService.createContact(authorizedClient, newContact);
+
         return "redirect:/contacts";
     }
 
